@@ -6,7 +6,8 @@ public class SortingAlgorithmsExample
     {
         int[] randomArray = [47, 12, 85, 3, 91, 66, 25, 19, 76, 50];
         // randomArray = BubbleSort(randomArray);
-        randomArray = QuickSort(randomArray);
+        // randomArray = QuickSort(randomArray);
+        randomArray = MergeSort(randomArray);
         foreach (var item in randomArray)
         {
             Console.WriteLine($"{item}");
@@ -73,6 +74,49 @@ public class SortingAlgorithmsExample
     
     public static int[] MergeSort(int[] arr)
     {
-        return arr;
+        return mergeSortSplit(arr);
+    }
+    
+    private static int[] mergeSortSplit(int[] arr)
+    {
+        if (arr.Length <= 1)
+        {
+            return arr;
+        }
+
+        var middleIndex = arr.Length / 2;
+        var leftArray = arr[..middleIndex];
+        var rightArray = arr[middleIndex..];
+        return mergeSortMerge(mergeSortSplit(leftArray), mergeSortSplit(rightArray));
+    }
+    
+    private static int[] mergeSortMerge(int[] leftArray, int[] rightArray)
+    {
+        var resultArray = new int[0];
+        var leftIndex = 0;
+        var rightIndex = 0;
+        
+        while (leftIndex < leftArray.Length && rightIndex < rightArray.Length)
+        {
+            if (leftArray[leftIndex] < rightArray[rightIndex])
+            {
+                resultArray = resultArray.Append(leftArray[leftIndex]).ToArray();
+                leftIndex++;
+            }
+            else if (leftArray[leftIndex] > rightArray[rightIndex])
+            {
+                resultArray = resultArray.Append(rightArray[rightIndex]).ToArray();
+                rightIndex++;
+            }
+            else if (leftArray[leftIndex] == rightArray[rightIndex])
+            {
+                resultArray = resultArray.Append(leftArray[leftIndex]).Append(rightArray[rightIndex]).ToArray();
+                leftIndex++;
+                rightIndex++;
+            }
+        }
+        
+        // Merging the result with leftover (not processed) elements in both left and right arrays
+        return resultArray.Concat(leftArray[leftIndex..]).Concat(rightArray[rightIndex..]).ToArray();
     }
 }
