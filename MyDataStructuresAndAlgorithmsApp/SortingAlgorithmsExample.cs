@@ -12,6 +12,7 @@ public class SortingAlgorithmsExample
         {
             Console.WriteLine($"{item}");
         }
+        Console.WriteLine($"IsSorted: {IsSorted(randomArray)}");
     }
     
     public static int[] BubbleSort(int[] arr)
@@ -74,24 +75,17 @@ public class SortingAlgorithmsExample
     
     public static int[] MergeSort(int[] arr)
     {
-        return mergeSortSplit(arr);
-    }
-    
-    private static int[] mergeSortSplit(int[] arr)
-    {
+        // Stops the recursion at the right time
         if (arr.Length <= 1)
         {
             return arr;
         }
-
+        
+        // Splitting the array recursively
         var middleIndex = arr.Length / 2;
-        var leftArray = arr[..middleIndex];
-        var rightArray = arr[middleIndex..];
-        return mergeSortMerge(mergeSortSplit(leftArray), mergeSortSplit(rightArray));
-    }
-    
-    private static int[] mergeSortMerge(int[] leftArray, int[] rightArray)
-    {
+        var leftArray = MergeSort(arr[..middleIndex]);
+        var rightArray = MergeSort(arr[middleIndex..]);
+        
         var resultArray = new int[0];
         var leftIndex = 0;
         var rightIndex = 0;
@@ -118,5 +112,21 @@ public class SortingAlgorithmsExample
         
         // Merging the result with leftover (not processed) elements in both left and right arrays
         return resultArray.Concat(leftArray[leftIndex..]).Concat(rightArray[rightIndex..]).ToArray();
+    }
+    
+    public static bool IsSorted(int[] arr)
+    {
+        var result = true;
+        for (var i = 0; i < arr.Length; i++)
+        {
+            if (i > 0)
+            {
+                if (arr[i] < arr[i - 1])
+                {
+                    result = false;
+                }
+            }
+        }
+        return result;
     }
 }
