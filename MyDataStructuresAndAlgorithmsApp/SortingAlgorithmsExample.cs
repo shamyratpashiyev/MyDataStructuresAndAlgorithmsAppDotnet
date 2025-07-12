@@ -1,18 +1,34 @@
+using System.Diagnostics;
+
 namespace MyDataStructuresAndAlgorithmsApp;
 
 public class SortingAlgorithmsExample
 {
     public SortingAlgorithmsExample()
     {
-        int[] randomArray = [47, 12, 85, 3, 91, 66, 25, 19, 76, 50];
-        // randomArray = BubbleSort(randomArray);
-        // randomArray = QuickSort(randomArray);
-        randomArray = MergeSort(randomArray);
-        foreach (var item in randomArray)
-        {
-            Console.WriteLine($"{item}");
-        }
-        Console.WriteLine($"IsSorted: {IsSorted(randomArray)}");
+        // int[] randomArray = [47, 12, 85, 3, 91, 66, 25, 19, 76, 50];
+        var randomArray = GenerateRandomArray(100_000, 1, 100_000);
+        
+        var timer = new Stopwatch();
+        timer.Start();
+        var builtInSortResult = randomArray.Order().ToArray();
+        timer.Stop();
+        Console.WriteLine($"builtInSortResult: {timer.ElapsedMilliseconds} ms, IsSorted: {IsSorted(builtInSortResult)}");
+        
+        timer.Restart();
+        var mergeSortResult = MergeSort(randomArray);
+        timer.Stop();
+        Console.WriteLine($"mergeSortResult: {timer.ElapsedMilliseconds} ms, IsSorted: {IsSorted(mergeSortResult)}");
+
+        timer.Restart();
+        var quickSortResult = QuickSort(randomArray);
+        timer.Stop();
+        Console.WriteLine($"quickSortResult: {timer.ElapsedMilliseconds} ms, IsSorted: {IsSorted(quickSortResult)}");
+
+        timer.Restart();
+        var bubbleSortResult = BubbleSort(randomArray);
+        timer.Stop();
+        Console.WriteLine($"bubbleSortResult: {timer.ElapsedMilliseconds} ms, IsSorted: {IsSorted(bubbleSortResult)}");
     }
     
     public static int[] BubbleSort(int[] arr)
@@ -128,5 +144,12 @@ public class SortingAlgorithmsExample
             }
         }
         return result;
+    }
+    
+    public static int[] GenerateRandomArray(int count, int min, int max)
+    {
+        Random rand = new Random();
+        
+        return Enumerable.Range(0, count).Select(_ => rand.Next(min, max)).ToArray();
     }
 }
