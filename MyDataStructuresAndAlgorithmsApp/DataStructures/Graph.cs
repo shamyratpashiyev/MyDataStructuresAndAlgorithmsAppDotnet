@@ -3,11 +3,14 @@ namespace MyDataStructuresAndAlgorithmsApp.DataStructures;
 // Undirected Graph by default.
 public abstract class Graph
 {
-    protected Dictionary<int, List<int>> Nodes = default;
+    protected readonly Dictionary<int, List<int>> Nodes = new();
     
     public void AddNode(int nodeValue)
     {
-        Nodes.Add(nodeValue, new());
+        if (!Nodes.ContainsKey(nodeValue))
+        {
+            Nodes.Add(nodeValue, new());
+        }
     }
     
     public void RemoveNode(int targetNode)
