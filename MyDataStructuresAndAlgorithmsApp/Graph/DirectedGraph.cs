@@ -1,4 +1,4 @@
-namespace MyDataStructuresAndAlgorithmsApp.DataStructures;
+namespace MyDataStructuresAndAlgorithmsApp.Graph;
 
 public class DirectedGraph : Graph
 {

@@ -1,4 +1,4 @@
-namespace MyDataStructuresAndAlgorithmsApp.DataStructures;
+namespace MyDataStructuresAndAlgorithmsApp.Graph;
 
 // Undirected Graph by default.
 public abstract class Graph
