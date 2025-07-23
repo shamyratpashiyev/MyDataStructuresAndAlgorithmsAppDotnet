@@ -1,6 +1,6 @@
 namespace MyDataStructuresAndAlgorithmsApp.Tree;
 
-public class BinarySearchTree : BinaryTree<BinarySearchTreeNode>
+public class BinarySearchTree(BinarySearchTreeNode rootNode) : BinaryTree<BinarySearchTreeNode>(rootNode)
 {
     
 }

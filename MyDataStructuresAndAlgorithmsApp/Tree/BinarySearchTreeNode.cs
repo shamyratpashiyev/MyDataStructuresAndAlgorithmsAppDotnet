@@ -1,43 +1,35 @@
+using MyDataStructuresAndAlgorithmsApp.Tree.CustomExceptions;
+
 namespace MyDataStructuresAndAlgorithmsApp.Tree;
 
 public class BinarySearchTreeNode : BinaryTreeNode
 {
     public BinarySearchTreeNode(int value) : base(value){ }
     
-    public void AddChild(BinarySearchTreeNode node)
+    protected override int MaxChildrenCount => 2;
+    
+    public override void AddChild(TreeNode newChild)
     {
-        if (GetChildren().Count == 2)
+        if (GetChildren().Count == MaxChildrenCount)
         {
-            throw new Exception("BinarySearchTreeNode cannot have more than two children");
+            throw new MaxChildCountExceededException("BinarySearchTreeNode cannot have more than two children");
         }
         
-        // Adding the rightChild
-        if (node.GetValue() >= this.GetValue())
+        // Adding the duplicate child one level down
+        var childWithSameValue = GetChildren().Where(x => x.GetValue() == newChild.GetValue()).FirstOrDefault();
+        if (childWithSameValue != null)
         {
-            if (GetChildren().Count == 0)
-            {
-                base.AddChild(null);
-                base.AddChild(node);
-            }
-            else
-            {
-                base.AddChild(node);
-                base.SortChildren(descending: true);
-            }
+            childWithSameValue.AddChild(newChild);
+            return;
         }
-        // Adding the leftChild
+        
+        if (newChild.GetValue() >= this.GetValue())
+        {
+            this.Children = this.Children.Append(newChild).ToList();
+        }
         else
         {
-            if (GetChildren().Count == 0)
-            {
-                base.AddChild(node);
-                base.AddChild(null);
-            }
-            else
-            {
-                base.AddChild(node);
-                base.SortChildren();
-            }
+            this.Children = this.Children.Prepend(newChild).ToList();
         }
     }
 }
