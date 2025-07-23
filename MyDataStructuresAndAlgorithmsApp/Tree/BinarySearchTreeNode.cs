@@ -12,24 +12,15 @@ public class BinarySearchTreeNode : BinaryTreeNode
     {
         if (GetChildren().Count == MaxChildrenCount)
         {
-            throw new MaxChildCountExceededException("BinarySearchTreeNode cannot have more than two children");
+            throw new MaxChildCountExceededException($"{this.GetType().Name} cannot have more than {this.MaxChildrenCount} children");
         }
         
         // Adding the duplicate child one level down
-        var childWithSameValue = GetChildren().Where(x => x.GetValue() == newChild.GetValue()).FirstOrDefault();
+        var childWithSameValue = this.Children.Where(x => x.Value == newChild.Value).FirstOrDefault();
         if (childWithSameValue != null)
         {
             childWithSameValue.AddChild(newChild);
             return;
-        }
-        
-        if (newChild.GetValue() >= this.GetValue())
-        {
-            this.Children = this.Children.Append(newChild).ToList();
-        }
-        else
-        {
-            this.Children = this.Children.Prepend(newChild).ToList();
         }
     }
 }

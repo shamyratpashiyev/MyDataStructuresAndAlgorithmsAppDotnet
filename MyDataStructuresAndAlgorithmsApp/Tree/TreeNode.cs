@@ -9,7 +9,7 @@ public class TreeNode
         Value = value;
         Children = new();
     }
-    private int Value { get; set; }
+    public int Value { get; protected set; }
     
     protected virtual int MaxChildrenCount { get; private set; } = 3;
 
@@ -35,7 +35,7 @@ public class TreeNode
     {
         if (GetChildren().Count == MaxChildrenCount)
         {
-            throw new MaxChildCountExceededException($"{this.GetType().Name} cannot have more than two children");
+            throw new MaxChildCountExceededException($"{this.GetType().Name} cannot have more than {this.MaxChildrenCount} children");
         }
         
         Children.Add(newChild);
@@ -44,6 +44,26 @@ public class TreeNode
     public void RemoveChild(TreeNode child)
     {
         this.Children.Remove(child);
+    }
+    
+    public void AppendChild(TreeNode newChild)
+    {
+        if (GetChildren().Count == MaxChildrenCount)
+        {
+            throw new MaxChildCountExceededException($"{this.GetType().Name} cannot have more than {this.MaxChildrenCount} children");
+        }
+
+        this.Children = this.Children.Append(newChild).ToList();
+    }
+    
+    public void PrependChild(TreeNode newChild)
+    {
+        if (GetChildren().Count == MaxChildrenCount)
+        {
+            throw new MaxChildCountExceededException($"{this.GetType().Name} cannot have more than {this.MaxChildrenCount} children");
+        }
+
+        this.Children = this.Children.Prepend(newChild).ToList();
     }
     
     public void SortChildren(bool descending = false)

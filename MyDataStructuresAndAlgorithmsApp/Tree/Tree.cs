@@ -7,7 +7,7 @@ public class Tree<T>(T rootNode)
 {
     public T RootNode { get; set; } = rootNode;
     
-    public void AddNode(T newNode, T? node = null)
+    public virtual void AddNode(T newNode, T? node = null)
     {
         if (node == null)
         {
