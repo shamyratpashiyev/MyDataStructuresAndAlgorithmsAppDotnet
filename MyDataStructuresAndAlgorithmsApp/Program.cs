@@ -10,33 +10,33 @@ public class Program
         // new SimpleDataStructuresExample();
         // new SortingAlgorithmsExample();
         
-        var newList = new List<TreeNode>()
+        var newList = new List<BinaryTreeNode>()
         {
-            new TreeNode(42),
-            new TreeNode(17),
-            new TreeNode(63),
-            new TreeNode(8),
-            new TreeNode(95),
-            new TreeNode(34),
-            new TreeNode(76),
-            new TreeNode(21),
-            new TreeNode(59),
-            new TreeNode(3),
-            new TreeNode(88),
-            new TreeNode(14),
-            new TreeNode(70),
-            new TreeNode(27),
-            new TreeNode(90),
-            new TreeNode(11),
-            new TreeNode(68),
-            new TreeNode(52),
-            new TreeNode(36),
-            new TreeNode(7),
+            new BinaryTreeNode(42),
+            new BinaryTreeNode(17),
+            new BinaryTreeNode(63),
+            new BinaryTreeNode(8),
+            new BinaryTreeNode(95),
+            new BinaryTreeNode(34),
+            new BinaryTreeNode(76),
+            new BinaryTreeNode(21),
+            new BinaryTreeNode(59),
+            new BinaryTreeNode(3),
+            new BinaryTreeNode(88),
+            new BinaryTreeNode(14),
+            new BinaryTreeNode(70),
+            new BinaryTreeNode(27),
+            new BinaryTreeNode(90),
+            new BinaryTreeNode(11),
+            new BinaryTreeNode(68),
+            new BinaryTreeNode(52),
+            new BinaryTreeNode(36),
+            new BinaryTreeNode(7),
         };
-        var tree = new Tree<TreeNode>(new TreeNode(50));
-        foreach (var treeNode in newList)
+        var binaryTree = new BinaryTree<BinaryTreeNode>(new BinaryTreeNode(50));
+        foreach (var binaryTreeNode in newList)
         {
-            tree.AddNode(treeNode);
+            binaryTree.AddNode(binaryTreeNode);
         }
         
         Console.WriteLine($"Finished");
